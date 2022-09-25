@@ -12,7 +12,34 @@ class categoriaController extends Controller
     }
 
     public function getCategoriaIndex($id){
-        echo $id;
+        $categoria = categoria::find($id);
+        if(is_null($categoria)){
+            return response()->json(['Mensaje' => 'Registro no encontrado!'], 404);
+        }
+        return response()->json($categoria::find($id), 200);
+    }
+
+    public function insertarCategoria(Request $request){
+        $categoria = categoria::create($request->all());
+        return response($categoria, 200);
+    }
+
+    public function actualizarCategoria(Request $request, $id){
+        $categoria = categoria::find($id);
+        if(is_null($categoria)){
+            return response()->json(['Mensaje'=>'Registro no encontrado!'], 404);
+        }
+        $categoria->update($request->all());
+        return response($categoria, 200);
+    }
+
+    public function eliminarCategoria($id){
+        $categoria = categoria::find($id);
+        if(is_null($categoria)){
+            return response()->json(['Mensaje'=>'Registro no encontrado!'], 404);
+        }
+        $categoria->delete();
+        return response()->json(['Mensaje'=>'Registro Eliminado!'], 200);
     }
 
 }

@@ -19,6 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/categoria', [categoriaController::class, 'getCategoria']);
+Route::get('categoria', 'App\Http\Controllers\categoriaController@getCategoria');
 
-Route::get('/categoria/{$id?}', [categoriaController::class, 'getCategoriaIndex']);
+Route::get('categoria/{id}', 'App\Http\Controllers\categoriaController@getCategoriaIndex');
+
+Route::post('agregarCategoria', 'App\Http\Controllers\categoriaController@insertarCategoria');
+
+Route::put('actualizarCategoria/{id}', 'App\Http\Controllers\categoriaController@actualizarCategoria');
+
+Route::delete('eliminarCategoria/{id}', 'App\Http\Controllers\categoriaController@eliminarCategoria');
